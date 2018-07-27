@@ -1,0 +1,23 @@
+{% extends 'base_user.html' %}
+{% block page_content %}
+
+
+图片显示窗口
+第一张图片
+<img src="{{ url_for('static',filename='upload/'+ imageName) }}" style="width:200px;height:200px"> </td>
+
+
+<form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+    <div class="form-group">
+        <label>源文件</label>
+        {{ form.photo }}
+        
+    </div>
+    <div class="form-group">
+        <label>目标</label>
+        {{ form.photo1 }}
+        
+    </div>
+    {{ form.submit }}
+</form>
+{% endblock %}
