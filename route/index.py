@@ -53,6 +53,53 @@ def upload():
     # redirect(url_for('/'))
     return render_template('login.html',form=form,imageName=imageName)
 
+@app.route('/miniup', methods=['POST'])
+def miniup():
+    
+    if request.method == 'POST' and 'photo' in request.files:
+        # print(request.files)
+        filename = photos.save(request.files['photo'])
+        
+        # print(filename)
+        session['file1'] = filename
+        
+        
+        
+        
+        
+        # fw = FaceWapper((app.root_path)+"static/upload/"+filename,(app.root_path)+"static/upload/"+filenameNew)
+        # imageName = fw.uuid_image_name()
+        # fw.save_image_special((app.root_path)+"static/upload/" + imageName)
+
+        # rec = Photo(filename=filename, user=g.user.id)
+        # rec.store()
+        return Response(filename)
+        
+@app.route('/magic', methods=['POST'])
+def magic():
+    
+    if request.method == 'POST':
+        # print(request.files)
+        
+        filename = request.form['one']
+        filenameNew = request.form['second']
+        
+        
+    
+        
+        fw = FaceWapper((app.root_path)+"static/upload/"+filename,(app.root_path)+"static/upload/"+filenameNew)
+        imageName = fw.uuid_image_name()
+        fw.save_image_special((app.root_path)+"static/upload/" + imageName)
+
+        # rec = Photo(filename=filename, user=g.user.id)
+        # rec.store()
+        return Response("/static/upload/" + imageName)
+        
+    
+    
+    
+    
+
 @app.route('/photo/<id>')
 def show(id):
     # photo = Photo.load(id)
